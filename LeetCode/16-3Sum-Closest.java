@@ -6,10 +6,10 @@ class Solution {
         while (low < high) {
             int mid = low + (high - low) / 2;
 
-            if (array[mid] < target) {
+            if (array[mid] <= target) {
                 low = mid + 1;
             } else {
-                high = mid;
+                high = mid - 1;
             }
         }
 
@@ -67,10 +67,6 @@ class Solution {
                     }
 
                     break;
-                }
-
-                if (closestSum == target) {
-                    return closestSum;
                 }
             }
         }
