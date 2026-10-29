@@ -6,10 +6,10 @@ class Solution {
         while (low < high) {
             int mid = low + (high - low) / 2;
 
-            if (array[mid] <= target) {
+            if (array[mid] < target) {
                 low = mid + 1;
             } else {
-                high = mid - 1;
+                high = mid;
             }
         }
 
@@ -20,7 +20,7 @@ class Solution {
         Arrays.sort(nums);
 
         int n = nums.length;
-        int closestSum = nums[0] + nums[1] + nums[2];
+        long closestSum = (long) nums[0] + nums[1] + nums[2];
 
         for (int i = 0; i < n - 2; i++) {
             if (i > 0 && nums[i] == nums[i - 1]) {
@@ -32,45 +32,36 @@ class Solution {
                     continue;
                 }
 
-                int currentSum = nums[i] + nums[j];
-                int complement = target - currentSum;
+                long currentSum = (long) nums[i] + nums[j];
+                int complement = (int) Math.max(Integer.MIN_VALUE,
+                        Math.min(Integer.MAX_VALUE, (long) target - currentSum));
 
                 int k = lowerBound(nums, complement);
 
-                // Search left from the lower bound.
                 for (int p = k - 1; p >= 0; p--) {
                     if (p == i || p == j) {
                         continue;
                     }
-
-                    int sum = currentSum + nums[p];
-
-                    if (Math.abs((long) target - sum)
-                            < Math.abs((long) target - closestSum)) {
+                    long sum = currentSum + nums[p];
+                    if (Math.abs(target - sum) < Math.abs(target - closestSum)) {
                         closestSum = sum;
                     }
-
                     break;
                 }
 
-                // Search right from the lower bound.
                 for (int p = k; p < n; p++) {
                     if (p == i || p == j) {
                         continue;
                     }
-
-                    int sum = currentSum + nums[p];
-
-                    if (Math.abs((long) target - sum)
-                            < Math.abs((long) target - closestSum)) {
+                    long sum = currentSum + nums[p];
+                    if (Math.abs(target - sum) < Math.abs(target - closestSum)) {
                         closestSum = sum;
                     }
-
                     break;
                 }
             }
         }
 
-        return closestSum;
+        return (int) closestSum;
     }
 }
