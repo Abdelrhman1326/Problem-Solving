@@ -33,8 +33,7 @@ class Solution {
                 }
 
                 long currentSum = (long) nums[i] + nums[j];
-                int complement = (int) Math.max(Integer.MIN_VALUE,
-                        Math.min(Integer.MAX_VALUE, (long) target - currentSum));
+                int complement = (int) Math.max(Integer.MIN_VALUE, Math.min(Integer.MAX_VALUE, (long) target - currentSum));
 
                 int k = lowerBound(nums, complement);
 
@@ -62,6 +61,6 @@ class Solution {
             }
         }
 
-        return (int) closestSum;
+        return (int)closestSum;
     }
 }
