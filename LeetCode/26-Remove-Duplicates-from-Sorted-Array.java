@@ -1,24 +1,27 @@
-public class Solution 
-{
-    public int RemoveDuplicates(int[] nums) 
-    {
-        if (nums.Length == 0) 
-        {
-            return 0;
-        }
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        int maxNum = Arrays.stream(nums).max().orElse(0);
+        int minNum = Arrays.stream(nums).min().orElse(0);
 
-        int writeIndex = 1; 
+        int freqLength = Math.abs(maxNum) + Math.abs(minNum) + 1;
+        int indexShift = Math.abs(minNum); // -5 for example will be putten in the index 0, 5 will be in index 10
 
-        for (int readIndex = 1; readIndex < nums.Length; readIndex++) 
-        {
-            if (nums[readIndex] != nums[writeIndex - 1]) 
-            {
-                nums[writeIndex] = nums[readIndex];
-                
-                writeIndex++;
+        boolean[] freq = new boolean[freqLength];
+        Arrays.fill(freq, false);
+
+        int stepsBackward = 0; 
+        for (int i = 0; i < nums.length; i++) {
+            if (freq[nums[i] + indexShift] == true) { // previously visited
+                stepsBackward += 1; // future items will need 
+                continue;
+            }
+
+            if (stepsBackward >= 0) {
+                nums[i - stepsBackward] = nums[i];
+                freq[nums[i] + indexShift] = true; // mark visited
             }
         }
 
-        return writeIndex;
+        return (nums.length - stepsBackward);
     }
 }
