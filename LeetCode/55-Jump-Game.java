@@ -10,8 +10,6 @@ class Solution {
 
             if (left_jump_distance >= 0 && left_jump_distance <= nums[i]) {
                 prev_jump_index = i;
-            } else if (nums[prev_jump_index] - (i - prev_jump_index) == 0) {
-                prev_jump_index = i;
             }
         }
         
