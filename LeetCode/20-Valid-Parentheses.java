@@ -1,36 +1,33 @@
-using System.Collections.Generic;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
-public class Solution {
-    public bool IsValid(string s) {
-        if (s.Length == 0) return true; 
-
-        Stack<char> Parentheses = new Stack<char>();
+class Solution {
+    public boolean isValid(String s) {
+        Deque<Character> stack = new ArrayDeque<>();
         
-        for (int i = 0; i < s.Length; ++i) {
-            char current = s[i];
-
-            if (current == '(' || current == '[' || current == '{') {
-                Parentheses.Push(current);
+        for (char c : s.toCharArray()) {
+            if (!stack.isEmpty()) {
+                char top = stack.peek();
+                if (top == '(' && c == ')') {
+                    stack.pop();
+                    continue;
+                }
+                if (top == '{' && c == '}') {
+                    stack.pop();
+                    continue;
+                }
+                if (top == '[' && c == ']') {
+                    stack.pop();
+                    continue;
+                }
+                stack.push(c);
+            } else if (c == '}' || c == ')' || c == ']') {
+                return false;
+            } else {
+                stack.push(c);
             }
-            else if (current == ')' || current == ']' || current == '}') {
-                if (Parentheses.Count == 0) {
-                    return false;
-                }
-                
-                char top = Parentheses.Peek();
-
-                if (current == ')' && top == '(') {
-                    Parentheses.Pop();
-                } else if (current == ']' && top == '[') {
-                    Parentheses.Pop();
-                } else if (current == '}' && top == '{') {
-                    Parentheses.Pop();
-                } else {
-                    return false; 
-                }
-            } 
         }
 
-        return Parentheses.Count == 0;
+        return stack.isEmpty();
     }
 }
