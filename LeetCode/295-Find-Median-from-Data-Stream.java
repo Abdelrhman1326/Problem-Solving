@@ -8,22 +8,11 @@ class MedianFinder {
     }
     
     public void addNum(int num) {
-        if (min_heap.isEmpty()) {
-            min_heap.offer(num);
-            return;
-        }
+        min_heap.offer(num);
+        max_heap.offer(min_heap.poll());
 
-        if (!max_heap.isEmpty() && max_heap.peek() > num) {
-            max_heap.offer(num);
-        } else {
-            min_heap.offer(num);
-        }
-
-        while (min_heap.size() < max_heap.size()) {
+        if (min_heap.size() < max_heap.size()) {
             min_heap.offer(max_heap.poll());
-        }
-        while (min_heap.size() > max_heap.size() + 1) {
-            max_heap.offer(min_heap.poll());
         }
     }
     
