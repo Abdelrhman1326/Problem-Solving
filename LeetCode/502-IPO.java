@@ -18,12 +18,12 @@ class Solution {
         int total_capital = w;
         int investments_count = 0;
 
-        if (k == 0 || profits.length == 0 || capital.length == 0 || profits.length != capital.length) {
+        if (k == 0 || profits.length == 0) {
             return w;
         }
 
         for (int i = 0; i < projects.size(); i++) {
-            if (investments_count >= k) {
+            if (investments_count == k) {
                 break;
             }
             
