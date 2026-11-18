@@ -10,8 +10,8 @@ class Solution {
 
         // sort with minimum capital then max profit
         projects.sort(
-            Comparator.comparingInt(Project::capital)
-                    .thenComparingInt(p -> -p.profit())
+            Comparator.comparingInt((Project p) -> p.capital())
+                    .thenComparingInt((Project p) -> -p.profit())
         );
 
         PriorityQueue<Integer> max_heap = new PriorityQueue<>(Comparator.reverseOrder());
