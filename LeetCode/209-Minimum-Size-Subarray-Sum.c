@@ -15,6 +15,11 @@ int minSubArrayLen(int target, int* nums, int numsSize) {
             leftPtr += 1;
         }
 
+        if (leftPtr > 0) {
+            totalSum += *(nums + leftPtr - 1);  
+            leftPtr--;
+        }
+
         rightPtr += 1;
     }
 
